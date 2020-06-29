@@ -30,6 +30,7 @@ load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
 scala_register_toolchains()
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+
 scala_repositories()
 
 protobuf_version = "3.11.3"
@@ -50,6 +51,8 @@ scala_proto_repositories()
 load("@io_bazel_rules_scala//scala_proto:toolchains.bzl", "scala_proto_register_toolchains")
 
 scala_proto_register_toolchains()
+
+register_toolchains("//scala/proto:proto_deps_toolchain")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
@@ -72,7 +75,61 @@ maven_install(
         "org.scala-lang:scala-library:jar:2.12.11",
         "org.scala-lang:scala-reflect:jar:2.12.11",
         "org.scala-lang:scala-compiler:jar:2.12.11",
+
+        # proto
+        "com.thesamet.scalapb:compilerplugin_2.12:0.9.7",
+        "com.thesamet.scalapb:protoc-bridge_2.12:0.7.14",
+        "com.thesamet.scalapb:scalapbc_2.12:0.9.7",
+        "com.thesamet.scalapb:scalapb-runtime_2.12:0.9.7",
+        "com.thesamet.scalapb:scalapb-runtime-grpc_2.12:0.9.7",
+        "com.thesamet.scalapb:lenses_2.12:0.9.7",
+        "com.lihaoyi:fastparse_2.12:2.1.3",
+        "io.grpc:grpc-core:1.24.0",
+        "io.grpc:grpc-api:1.24.0",
+        "io.grpc:grpc-protobuf:1.24.0",
+        "io.grpc:grpc-netty:1.24.0",
+        "io.grpc:grpc-context:1.24.0",
+        "io.perfmark:perfmark-api:0.17.0",
+        "com.google.guava:guava:26.0-android",
+        "com.google.instrumentation:instrumentation-api:0.3.0",
+        "io.netty:netty-codec:4.1.32.Final",
+        "io.netty:netty-codec-http:4.1.32.Final",
+        "io.netty:netty-codec-socks:4.1.32.Final",
+        "io.netty:netty-codec-http2:4.1.32.Final",
+        "io.netty:netty-handler:4.1.32.Final",
+        "io.netty:netty-buffer:4.1.32.Final",
+        "io.netty:netty-transport:4.1.32.Final",
+        "io.netty:netty-resolver:4.1.32.Final",
+        "io.netty:netty-common:4.1.32.Final",
+        "io.netty:netty-handler-proxy:4.1.32.Final",
+        "io.opencensus:opencensus-api:0.22.1",
+        "io.opencensus:opencensus-impl:0.22.1",
+        "com.lmax:disruptor:3.4.2",
+        "io.opencensus:opencensus-impl-core:0.22.1",
+        "io.opencensus:opencensus-contrib-grpc-metrics:0.22.1",
+
+        # additional
+        #        "org.scalameta:common_2.12:jar:4.3.0",
+        #        "org.scalameta:fastparse_2.12:jar:1.0.1",
+        #        "org.scalameta:fastparse-utils_2.12:jar:1.0.1",
+        #        "org.scala-lang.modules:scala-collection-compat_2.12:jar:2.1.2",
+        #        "org.scalameta:parsers_2.12:jar:4.3.0",
+        #        "org.scalameta:scalafmt-core_2.12:jar:2.3.2",
+        #        "org.scalameta:scalameta_2.12:jar:4.3.0",
+        #        "org.scalameta:trees_2.12:jar:4.3.0",
+        #        "org.typelevel:paiges-core_2.12:jar:0.2.4",
+        #        "com.typesafe:config:1.3.3",
+        #        "org.scala-lang:scalap:jar:2.11.12",
+        #        "com.thesamet.scalapb:lenses_2.12:jar:0.9.0",
+        #        "com.thesamet.scalapb:scalapb-runtime_2.12:jar:0.9.0",
+        #        "com.lihaoyi:fansi_2.12:jar:0.2.5",
+        #        "com.lihaoyi:pprint_2.12:jar:0.5.3",
+        #        "com.lihaoyi:sourcecode_2.12:jar:0.1.7",
+        #        "com.google.protobuf:protobuf-java:3.10.0",
+        #        "com.geirsson:metaconfig-core_2.12:jar:0.9.4",
+        #        "com.geirsson:metaconfig-typesafe-config_2.12:jar:0.9.4",
     ],
+    fetch_sources = True,
     generate_compat_repositories = True,
     maven_install_json = "@//:maven_install.json",
     repositories = [
@@ -80,7 +137,6 @@ maven_install(
         "https://maven.google.com",
         "https://repo1.maven.org/maven2",
     ],
-    fetch_sources = True,
 )
 
 load("@maven//:defs.bzl", "pinned_maven_install")

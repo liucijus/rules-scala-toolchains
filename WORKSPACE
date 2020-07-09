@@ -15,11 +15,11 @@ http_archive(
     url = "https://github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib.{}.tar.gz".format(skylib_version, skylib_version),
 )
 
-rules_scala_version = "fad57c6a321311cdd102459b1ecc081ec809aa9c"
+rules_scala_version = "00310733a99d9fb359f38294713c689c38e6b0b9"
 
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "47afe3694a146e980d55b905525c9fe5f3484606f34e30591bd1d022f545daf7",
+    sha256 = "394723f81eaecbb37f70727336f65ff9def7e735c6410ced783ed769b451b966",
     strip_prefix = "rules_scala-%s" % rules_scala_version,
     type = "zip",
     url = "https://github.com/liucijus/rules_scala/archive/%s.zip" % rules_scala_version,
